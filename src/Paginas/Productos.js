@@ -1,5 +1,7 @@
+// Productos.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const Productos = () => {
   const [productosOriginales, setProductosOriginales] = useState([]);
@@ -11,20 +13,21 @@ const Productos = () => {
   }, []);
 
   const obtenerProductos = () => {
-    axios.get('https://dummyjson.com/products')
-      .then(res => {
+    axios
+      .get('https://dummyjson.com/products')
+      .then((res) => {
         const productos = res.data.products;
         setProductosOriginales(productos);
         setProductosFiltrados(productos);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
 
   const filtrarPorCategoria = () => {
     if (filtroCategoria) {
-      const productosFiltrados = productosOriginales.filter(producto =>
+      const productosFiltrados = productosOriginales.filter((producto) =>
         producto.category.toLowerCase().includes(filtroCategoria.toLowerCase())
       );
       setProductosFiltrados(productosFiltrados);
@@ -45,13 +48,18 @@ const Productos = () => {
       />
       <button onClick={filtrarPorCategoria}>Filtrar</button>
 
-      <ul>
-        {productosFiltrados.map(producto => (
-          <li key={producto.id}><b>{producto.title}</b></li>
+      <ul className="productos-lista">
+        {productosFiltrados.map((producto) => (
+          <li key={producto.id}>
+            <Link to={`/productos/${producto.id}`}>
+              <b>{producto.title}</b>
+            </Link>
+          </li>
         ))}
       </ul>
     </div>
   );
-}
+};
 
 export default Productos;
+  

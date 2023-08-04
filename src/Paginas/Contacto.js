@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import "./Contacto.css";
 
 const Contacto = () => {
   const [formValues, setFormValues] = useState({ name: '', email: '', message: '' });
@@ -12,7 +13,6 @@ const Contacto = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsFormSubmitted(true);
-    // Aquí puedes agregar la lógica de envío del formulario o realizar cualquier acción adicional
   };
 
   return (
@@ -23,7 +23,7 @@ const Contacto = () => {
           <p>Gracias por enviar el formulario. Nos pondremos en contacto contigo pronto.</p>
         </div>
       ) : (
-        <form onSubmit={handleSubmit}>
+        <form class="formContacto" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="name">Nombre:</label>
             <input type="text" id="name" name="name" value={formValues.name} onChange={handleChange} />

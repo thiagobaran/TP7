@@ -1,0 +1,30 @@
+.detalle-producto {
+    display: flex;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .producto-info {
+    flex: 1;
+  }
+  
+  .producto-carrousel {
+    flex: 1;
+  }
+  
+  .producto-carrousel .carousel {
+    height: 100%;
+  }
+  
+  .producto-carrousel .carousel img {
+    height: 100%;
+    object-fit: contain; 
+  }
+  
+  @media (max-width: 768px) {
+    .detalle-producto {
+      flex-direction: column;
+    }
+  }
+  

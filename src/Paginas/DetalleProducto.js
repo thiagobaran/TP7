@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { Carousel } from 'react-bootstrap';
+import './DetalleProducto.css'; 
 
 const DetalleProducto = () => {
   const { id } = useParams();
   const [producto, setProducto] = useState(null);
 
   useEffect(() => {
-    axios.get(`https://dummyjson.com/products/${id}`)
-      .then(res => {
+    axios
+      .get(`https://dummyjson.com/products/${id}`)
+      .then((res) => {
         setProducto(res.data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }, [id]);
@@ -23,24 +26,28 @@ const DetalleProducto = () => {
   const { title, images, description, price, discountPercentage, rating, stock, brand, category } = producto;
 
   return (
-    <div>
-      <h1>Detalle del producto: {title}</h1>
-      <h2>Imágenes:</h2>
-      <div>
-        {images.map((image, index) => (
-          <img key={index} src={image} alt={`Imagen ${index + 1}`} />
-        ))}
+    <div className="detalle-producto">
+      <div className="producto-info">
+        <h1>{title}</h1>
+        <p>Descripción: {description}</p>
+        <p>{price}$</p>
+        <p>{discountPercentage}% DE DESCUENTO</p>
+        <p>Rating: {rating}</p>
+        <p>Quedan {stock} unidades</p>
+        <p>Marca: {brand}</p>
+        <p>Categoría: {category}</p>
       </div>
-      <h2>Información:</h2>
-      <p>Descripción: {description}</p>
-      <p>Precio: {price}</p>
-      <p>Porcentaje de descuento: {discountPercentage}</p>
-      <p>Rating: {rating}</p>
-      <p>Stock: {stock}</p>
-      <p>Marca: {brand}</p>
-      <p>Categoría: {category}</p>
+      <div className="producto-carrousel">
+        <Carousel>
+          {images.map((image, index) => (
+            <Carousel.Item key={index}>
+              <img src={image} alt={`Imagen ${index + 1}`} className="d-block w-100" />
+            </Carousel.Item>
+          ))}
+        </Carousel>
+      </div>
     </div>
   );
-}
+};
 
 export default DetalleProducto;

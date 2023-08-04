@@ -1,0 +1,30 @@
+/* Contacto.css */
+form {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Set the minimum height to cover the entire viewport */
+  }
+  
+  input,
+  textarea {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #61dafb;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #44a8c7;
+  }
+  

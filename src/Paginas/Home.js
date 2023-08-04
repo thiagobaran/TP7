@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Carousel } from 'react-bootstrap';
-import './Home.css';
 
 const Home = () => {
   const [prodRandom, setProdRandom] = useState([]);
