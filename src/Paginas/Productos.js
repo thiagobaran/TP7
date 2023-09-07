@@ -2,8 +2,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { useCarrito } from '../CarritoContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 const Productos = () => {
+  const { carrito } = useCarrito();
   const [productosOriginales, setProductosOriginales] = useState([]);
   const [productosFiltrados, setProductosFiltrados] = useState([]);
   const [filtroCategoria, setFiltroCategoria] = useState('');
@@ -51,6 +55,9 @@ const Productos = () => {
       <ul className="productos-lista">
         {productosFiltrados.map((producto) => (
           <li key={producto.id}>
+            {productoEnCarrito(carrito, producto.id) && (
+              <FontAwesomeIcon icon={faCheckCircle} className="check-icon" />
+            )}
             <Link to={`/productos/${producto.id}`}>
               <b>{producto.title}</b>
             </Link>
@@ -62,4 +69,3 @@ const Productos = () => {
 };
 
 export default Productos;
-  

@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Carousel } from 'react-bootstrap';
+import { useCarrito } from '../CarritoContext'; // Importa el contexto del carrito
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 const Home = () => {
+  const { carrito } = useCarrito(); // Obtén el carrito desde el contexto
+
   const [prodRandom, setProdRandom] = useState([]);
   const [imgRandom, setImgRandom] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -42,14 +47,24 @@ const Home = () => {
     setActiveIndex(selectedIndex);
   };
 
+  // Función para verificar si un producto está en el carrito
+  const productoEnCarrito = (productoId) => {
+    return carrito.some((producto) => producto.id === productoId);
+  };
+
   return (
     <div>
       <h1>Home</h1>
 
       <h2>Productos aleatorios</h2>
       <ul>
-        {prodRandom.map(producto => (
-          <li key={producto.id}><b>{producto.title}</b></li>
+        {prodRandom.map((producto) => (
+          <li key={producto.id}>
+            {productoEnCarrito(producto.id) && (
+              <FontAwesomeIcon icon={faCheckCircle} className="check-icon" />
+            )}
+            <b>{producto.title}</b>
+          </li>
         ))}
       </ul>
 
@@ -63,6 +78,6 @@ const Home = () => {
       </Carousel>
     </div>
   );
-}
+};
 
 export default Home;
