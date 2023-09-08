@@ -40,7 +40,7 @@ function App() {
               <Route path="/productos" element={<Productos />} />
               <Route path="/productos/:id" element={<DetalleProducto />} />
               <Route path="/contacto" element={<Contacto />} />
-              <Route path="/carrito" element={<Carrito />} /> {/* Agrega la ruta para el Carrito */}
+              <Route path="/carrito" element={<Carrito />} /> 
             </Routes>
           </main>
           <footer className="App-footer">

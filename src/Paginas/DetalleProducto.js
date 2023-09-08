@@ -3,16 +3,16 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { Carousel } from 'react-bootstrap';
 import './DetalleProducto.css';
-import { useCarrito } from '../CarritoContext'; 
+import { useCarrito } from '../CarritoContext';
+import PropTypes from 'prop-types'; // Importa PropTypes
 
 const DetalleProducto = () => {
   const { id } = useParams();
   const [producto, setProducto] = useState(null);
-  const { agregarAlCarrito } = useCarrito();
+  const { agregarAlCarrito, carrito, eliminarDelCarrito } = useCarrito();
 
   useEffect(() => {
-    axios
-      .get(`https://dummyjson.com/products/${id}`)
+    axios.get(`https://dummyjson.com/products/${id}`)
       .then((res) => {
         setProducto(res.data);
       })
@@ -24,7 +24,13 @@ const DetalleProducto = () => {
   const handleAgregarAlCarrito = () => {
     if (producto) {
       agregarAlCarrito(producto);
-      console.log('Producto agregado al carrito:', producto); // Agrega un console log para verificar si se agrega el producto
+      console.log('Producto agregado al carrito:', producto);
+    }
+  };
+
+  const handleEliminarDelCarrito = () => {
+    if (producto) {
+      eliminarDelCarrito(producto.id);
     }
   };
 
@@ -45,8 +51,8 @@ const DetalleProducto = () => {
         <p>Quedan {stock} unidades</p>
         <p>Marca: {brand}</p>
         <p>Categoría: {category}</p>
-        <button onClick={handleAgregarAlCarrito}>Añadir al Carrito</button> {/* Botón para agregar al carrito */}
-        </div>
+        <button onClick={handleAgregarAlCarrito}>Añadir al Carrito</button>
+      </div>
       <div className="producto-carrousel">
         <Carousel>
           {images.map((image, index) => (
@@ -58,6 +64,11 @@ const DetalleProducto = () => {
       </div>
     </div>
   );
+};
+DetalleProducto.propTypes = {
+  agregarAlCarrito: PropTypes.func.isRequired,
+  carrito: PropTypes.array.isRequired,
+  eliminarDelCarrito: PropTypes.func.isRequired,
 };
 
 export default DetalleProducto;

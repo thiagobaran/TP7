@@ -1,10 +1,10 @@
-// Productos.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useCarrito } from '../CarritoContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import PropTypes from 'prop-types'; // Importa PropTypes
 
 const Productos = () => {
   const { carrito } = useCarrito();
@@ -17,8 +17,7 @@ const Productos = () => {
   }, []);
 
   const obtenerProductos = () => {
-    axios
-      .get('https://dummyjson.com/products')
+    axios.get('https://dummyjson.com/products')
       .then((res) => {
         const productos = res.data.products;
         setProductosOriginales(productos);
@@ -40,6 +39,10 @@ const Productos = () => {
     }
   };
 
+  const productoEnCarrito = (productoId) => {
+    return carrito.some((producto) => producto.id === productoId);
+  };
+
   return (
     <div>
       <h1>Productos</h1>
@@ -55,7 +58,7 @@ const Productos = () => {
       <ul className="productos-lista">
         {productosFiltrados.map((producto) => (
           <li key={producto.id}>
-            {productoEnCarrito(carrito, producto.id) && (
+            {productoEnCarrito(producto.id) && (
               <FontAwesomeIcon icon={faCheckCircle} className="check-icon" />
             )}
             <Link to={`/productos/${producto.id}`}>
@@ -66,6 +69,10 @@ const Productos = () => {
       </ul>
     </div>
   );
+};
+
+Productos.propTypes = {
+  carrito: PropTypes.array.isRequired,
 };
 
 export default Productos;

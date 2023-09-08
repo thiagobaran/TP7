@@ -9,12 +9,17 @@ export const CarritoProvider = ({ children }) => {
   const agregarAlCarrito = (producto) => {
     const nuevoCarrito = [...carrito];
     const productoExistente = nuevoCarrito.find((p) => p.id === producto.id);
-  
+
     if (productoExistente) {
       productoExistente.cantidad++;
     } else {
       nuevoCarrito.push({ ...producto, cantidad: 1 });
     }
+    setCarrito(nuevoCarrito);
+  };
+
+  const eliminarDelCarrito = (productoId) => {
+    const nuevoCarrito = carrito.filter((producto) => producto.id !== productoId);
     setCarrito(nuevoCarrito);
   };
 
@@ -25,8 +30,9 @@ export const CarritoProvider = ({ children }) => {
   const value = {
     carrito,
     agregarAlCarrito,
-    mostrarCarrito, // Agrega mostrarCarrito al contexto
-    toggleCarrito, // Agrega toggleCarrito al contexto
+    eliminarDelCarrito,
+    mostrarCarrito,
+    toggleCarrito,
   };
 
   return (

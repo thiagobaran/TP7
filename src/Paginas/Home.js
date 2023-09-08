@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Carousel } from 'react-bootstrap';
-import { useCarrito } from '../CarritoContext'; // Importa el contexto del carrito
+import { useCarrito } from '../CarritoContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import PropTypes from 'prop-types'; // Importa PropTypes
 
 const Home = () => {
-  const { carrito } = useCarrito(); // Obtén el carrito desde el contexto
+  const { carrito } = useCarrito();
 
   const [prodRandom, setProdRandom] = useState([]);
   const [imgRandom, setImgRandom] = useState([]);
@@ -47,7 +48,6 @@ const Home = () => {
     setActiveIndex(selectedIndex);
   };
 
-  // Función para verificar si un producto está en el carrito
   const productoEnCarrito = (productoId) => {
     return carrito.some((producto) => producto.id === productoId);
   };
@@ -78,6 +78,11 @@ const Home = () => {
       </Carousel>
     </div>
   );
+};
+
+Home.propTypes = {
+  title: PropTypes.string,
+  images: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default Home;
