@@ -5,10 +5,9 @@ import Home from "./Paginas/Home";
 import Productos from "./Paginas/Productos";
 import DetalleProducto from "./Paginas/DetalleProducto";
 import Contacto from "./Paginas/Contacto";
-import Carrito from "./Paginas/CarritoModal"; // Importa el componente Carrito
+import Carrito from "./Paginas/CarritoModal"; 
+import Checkout from './Paginas/Checkout';
 import { CarritoProvider } from "./CarritoContext";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import "./App.css";
 
 function App() {
@@ -41,6 +40,7 @@ function App() {
               <Route path="/productos/:id" element={<DetalleProducto />} />
               <Route path="/contacto" element={<Contacto />} />
               <Route path="/carrito" element={<Carrito />} /> 
+              <Route path="/checkout" element={<Checkout />} />
             </Routes>
           </main>
           <footer className="App-footer">
