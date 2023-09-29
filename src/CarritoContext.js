@@ -1,10 +1,27 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 const CarritoContext = createContext();
 
 export const CarritoProvider = ({ children }) => {
   const [carrito, setCarrito] = useState([]);
   const [mostrarCarrito, setMostrarCarrito] = useState(false);
+
+  useEffect(() => {
+    console.log('Cargando carrito desde localStorage');
+    const carritoGuardado = localStorage.getItem('carrito');
+    if (carritoGuardado) {
+      console.log('Carrito recuperado:', JSON.parse(carritoGuardado));
+      setCarrito(JSON.parse(carritoGuardado));
+    } else {
+      console.log('No se encontraron datos de carrito en localStorage');
+    }
+  }, []);
+  
+  // En el useEffect para guardar el carrito en localStorage
+  useEffect(() => {
+    console.log('Guardando carrito en localStorage:', carrito);
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+  }, [carrito]);
 
   const agregarAlCarrito = (producto) => {
     const nuevoCarrito = [...carrito];
